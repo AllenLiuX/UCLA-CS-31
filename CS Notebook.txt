@@ -1,0 +1,927 @@
+CS Notebook
+
+Lecture 3
+
+problematic version:
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    cout << "What is your name?";
+	string personName;
+	getline(cin, personName);
+
+    cout <<"What is your age?";
+    int age;
+    cin >> age;
+	//cin.ignore(10000, ‘\n’);
+    
+	cout << "What is your request?";
+	string quest;
+	getline(cin, quest);
+
+	cout <<"Hello, brave " << personName << "!" << endl;
+	cout <<"Your want " << quest << endl;
+    cout <<"if you live, you will be " <<age + 1<< "years old next year";
+    return 0;
+}
+
+
+
+
+[notes]
+cin.ignore(10000, ‘\n’);
+用来清除以回车结束的输入缓冲区的内容，消除上一次输入对下一次输入的影响
+
+Int n= 0;
+while (n<=3)
+{
+	cout <<“Hello” <<endl;
+	n++;
+}
+
+
+for (initialization ; stay-in-loop-condition; prepare-for next-iteration)
+	statement；
+
+string s =“hello”;
+for (int k=0; k != s.size(); k++)
+	cout <<s[k]<<endl;
+	
+a[k] a sub  k // means the character at position k of a
+s.size() // s.length == the number of characters in the string
+
+char c = s[1] = ’n’
+
+=======
+void great(); //“function prototype” // declaration of a function
+void great()
+{
+	for (int k =0; k <3; k++)
+	cout << “hello” <<endl;
+}
+great()
+
+void() //没有return
+
+lecture 7 10/22
+.isdigit(ch) ‘0’ ‘1’ ‘2’ … ‘9’
+.islower(ch) ‘a’ ‘b’ ‘c’ … ‘z’
+.isupper(ch) ‘A’ ‘B’ ‘C’ … ‘Z’
+.isalpha(ch) ‘a’ ‘A’ ‘b’ ‘B’ … ‘z’ ‘Z’
+string.size()
+
+for (int i = 0, x = strlen(input); i < x; i++) {
+	input [i] = toupper(input[i]);
+
+
+//chr into int:
+char x = '2';
+    int y = (x-'0') * 2;
+
+//chr into string:
+string head (2, toupper(pds[0])+toupper(pds[1]));
+
+//substr(startIndex, length) method 
+string sub = x.substr(3, 2); 
+
+10/24/2018
+int main(){
+  string s;
+  getline(cin, s);
+  s[0] = toupper(s[0]);
+  cout << s<<endl;
+  return 0;
+}
+
+toupper(s); //won’t compile — argument most be a char, not a string
+toupper(s[0]); //compiles, but is useless
+[0] = toupper(s[0]); // works
+
+a = 3+5; // √
+n = 2*(k = 3+5) // √
+greet(3, “Hello”); //useless, void function
+sin(3.14159); //legal, but useless
+
+char ch = 76; // ch == ‘L’ if ASCII, ‘<‘ if EBCDIC
+int k = ‘L’; // k = 76 if ASCII; 211 if EBCDIC
+
+if ((ch >= ‘A’ && ch <= ‘D’ || ch ==‘F’) // depending on encoding
+
+‘a’ < ‘b’  ‘b’ < ‘c’ … ‘x’ < ‘z’
+‘A’ < ‘B’  ‘B’ < ‘C’ … ‘X’ < ‘Z’
+‘0’ < ‘1’ < ‘2’ < … < ‘9’ and they are consecutive!
+
+ch++; // now 77; ‘M’ if ASCII, ‘(‘ if EBCDIC
+k = 77;
+
+double d = 3.68;
+cout.setf(ios::fixed);
+cout.precision(1);
+cout <<d; //calls for the function for double; writes ‘3’ ‘.’ ‘7’
+		// if ASCII, this is 51 46 55
+		// if EBCDIC, this is 243 75 247
+cout << k; // calls the function for int; writes ‘7’ ‘7’
+		//if ASCII, this is 55 55
+		//if EBCDIC, this is 247 247
+
+&& has higher precedence than ||
+
+the sequence of conditions combined by && matters
+if (a/b > 10 && b != 0) //undefined behavior if b is 0
+if (b != 0 && a/b > 10) //fine
+
+
+int k;
+for (k=0; k< 10; k++)
+{
+…
+if (…)
+	continue;
+…
+}
+
+int k = 0;
+while (k<10)
+{
+	…
+	if (…)
+		continue;
+…
+k++;
+}
+
+bool isValidDate(int y, int m, ind d)
+{
+	…
+	if (m < 1 || m > 12 || d < 1)
+		return false;
+	if ( m == 1|| m == 3 || m == 5|| …|| m ==12)
+		return d<=31;
+	if (m == 4 || m == 6 || m == 9 || m == 11)
+		return d<=30;
+	if (y % 4 == 0 && y %100 != 0)
+		return day <=29;
+	if (y%4 != 4)
+		return day <=28;
+
+}
+
+bool isValidDate(int y, int m, ind d)
+{
+	const int daysInMonth[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+	if (m < 1 || m > 12 || d < 1)
+		return false;
+	if (m != 2)
+		return d <= daysInMonth[m-1];
+
+const int NMONTHS = 12;
+const string monthName[NMONTHS] ={“January”, “Febrary”, ……}
+if (m >=1 && m <=NMONTHS)
+	cout << monthName[m-1] <<endl;
+cout << “These months have 31 days: ”<<endl;
+for (int k =0; k < NMONTHS; k++)
+{		
+	if (daysInMonth[k] == 31)
+	cout <<monthName[k] <<endl;
+
+}
+
+can do:
+double a[12];
+const int NMonths = 12;
+double b[NMonths];
+double c[4*NMonths];
+
+can’t do:
+int n;
+double d[n]; //Error in standard C++!!! 
+int m =12;
+double e[m]; //Error in Standard C++!!!
+
+… daysInMonths.size()… //NO!!!
+… daysInMonths.length … // NO!!!
+
+int nScore = 0;
+int total = 0;
+cout << “Enter the scores: “;
+while(true) // for(;;)
+{
+	int s;
+	cin >> s;
+	if (s < 0)
+		break;
+	total += s;
+	nScores++;
+}
+if (nScores == 0)
+	cout << “There were no scores, so no average””<<endl;
+else
+//cout << “The average of all scores is “<<total/nScores <<endl; //doesn’t work because integer format
+double a=total;
+cout << “The average of all scores is “<<a/nScores <<endl;
+
+or
+cout << “The average of all scores is “
+	<<static_cast<double>(total)/nScores <<endl;
+
+or
+else
+{
+double mean = static_cast<double>(total)/nScores;
+cout << “The average of all the scores is “ << mean <<endl;
+double sumOfSquares = 0;
+for (int k = 0; k < nScores; k++)
+{
+	double diff = score[k] - mean;
+	sumOfSquares += diff *diff;
+}
+cout << “The std. deviation is “ << sqrt(sumOfSquares/nScores) <<endl;
+}
+
+
+10/31
+int main (){
+const int MAX_NUMBER_OF_SCORES = 10000;
+int scores[MAX_NUMBER_OF_SCORES];
+int scores = 0;
+double m = computeMean(scores, nScores);
+
+…
+int stuff[100];
+…//fill up all 100 elements of stuff
+double m2 = computeMean(staff, 100);
+
+const int daysInMonth[12] = {31,28,31, …, 31};
+double m3 = computeMean (daysInMonth, 12)
+…
+setFirst(stuff, 100,42);
+setFirst(daysInMonth,12,42); Error! won’t compile! 
+}
+
+double computeMean(int a[…], int n)
+{
+	if (n ==0)
+		return 0;
+	int total = 0;
+	for (int k=0; k<n;k++)
+		total += a[k];
+	setFirst(a,n,42);//Error! won’t compile!
+	return static_cast<double>(total)/n;
+}
+
+void setFirst (int a[], int n, int value)
+{ 	if (n>=1)
+		a[0] = value;
+	… computeMean(a,n)…
+}
+
+#include <string>
+using namespace std;
+
+string t = “Ghost”;
+string s; // empty string
+
+
+
+
+C++ Strings
+#include <string>
+using namespace std;
+string t = “Ghost”;
+string s;
+for (int k=0; k != t.size(); k++)
+	cout <<t[k] <<endl;
+
+cout <<t;
+getline(cin, s); // s must be a variable of type string
+s=t; // sets s to Ghost
+s += “!!!”; //sets s to Ghost!!! if (t < s)
+	…
+
+C Strings
+//char t[…] 
+char t[10] = {‘G’, ‘h’, ‘o’,’s’,’t’} // it is allowed to put fewer elements in array than declared.
+
+C++
+char t[10] = “Ghost”;
+‘\0’ is zero byte
+
+C Strings
+include <cstring>
+char t[10] = “Ghost”;
+char s[100] = “”;
+t[2] = ‘a’;
+cout << strlen(t);
+for (int k=0; k != strlen(t); k++) //don’t!
+	cout <<t[k] <<endl;
+n = strlen(t);
+for (int k=0; k != n; k++) //don’t!
+	cout <<t[k] <<endl;
+
+for (int k = 0; t[k] != ‘\0’; k++)
+	cout << t[k] << endl;
+cout <<t;
+cin.getline(s,100); //string no more than 100 characters
+s = t; // Error! Arrays can not be assigned;
+
+strcpy(s, t); //	strcpy(destination, source)
+strcat(s, “!!!”); //	now s is “Ghost!!!”
+
+… strcmp(a, b) …
+	negative if a comes before b
+	0	  if a equals b
+	positive if a comes after b
+//otherwise, the direct comparison of a and b is the comparison of their locations
+
+if (strcmp(a ,b) < 0)
+
+C++ Strings: a OP b
+C strings: strcom(a, b) OP 0
+
+Is a equal to b?
+WRONG:	if (strcmp(a, b))	// actually yields the opposite result
+RIGHT:	if (strcmp(a, b) == 0)
+
+Does a come before b?
+WRING:	if (a<b)	//will compile for C strings, but not do what you want!
+RIGHT:	if (strcmp(a, b) < 0)
+
+void f(const char cs[])
+{
+…
+}
+int main()
+{ 	string s = “Hello”;
+	char t[10] = “Hello”;
+	string s2 = t;
+
+f(t);
+f(s);	//Error! won’t compile!
+f(s.c_str());	//OK
+const int NWEEKS = 5;
+const int NDAYS = 7;
+int attendance[NWEEKS][NDAYS];
+…
+cout << attendance[2][4];
+
+for (int w = 0; w < NWEEKS; w++)
+{
+	int t = 0;
+	for (int d = 0; d < NDAYS; d++)
+		t += attendace[w][d];
+	cout << “The total for week ” << w << “ is “ << … <<endl;
+}
+
+const string dayName[NDAYS] = {“Monday”, “Tuesday”,”Wednesday”,”Thursday”,”Friday”,”Saturday”,”Sunday”};
+int grandTotal = 0;
+for (int d = 4/* Friday */; d < NDAYS; d++)
+{
+for (int w = 0; w<NWEEKS; w++)
+	t += attendance[w][d];
+cout << “The total for week ” << w << “ is “ << t <<endl;
+grandTotal += t;
+}
+cout << “Over the course of “ << NWEEKS<<“ weeks, weekend attendance was “<<grandTotal <<endl;
+
+double computeMean (const int a[], int n);
+
+
+double meanForADay (const int a[][NWEEKS], int nRows, int dayNumber){
+	if (nRows <=0)
+		return 0;
+	int total = 0;
+	for (int r =0; r <nRows; r++)
+		total += a[r][dayNumber];
+	return static_cast<double>(total) /nRows;
+}
+int main(){
+	int attendance[NDAYS][NWEEKS];
+	…
+	double meanWed = meanForADay(attendance, NWEEKS, 2 /* Wed */);
+	…
+}
+
+
+void f(…);
+
+int chainAttendance[5][7][10][16];
+…
+f(chainAttendance, …);
+
+
+
+11/7/2018
+
+Pointer:
+Another way to implement passing by reference
+Traverse arrays
+manipulate dynamic storage
+Represent relationships in data structures
+
+double& means reference-to-double or another-name-for-some-double	//c语言里没有
+double* means pointer-to-double or the-address-of-some-double	//另一种传reference方法，
+//declare 一个新变量的地址
+
+&x means “generate a pointer to x”  “address of x”	//新变量的地址
+*p means “follow the pointer p”  “the object that p points to” //赋值
+
+int main(){
+    double r;
+    double angle;
+    //get values for r and angle
+    double x;
+    double y;
+    polarToCartesian(r, angle, x, y);
+    //...
+    double y2;
+    polarToCartesian(2*r, angle, x, y2);
+    
+}
+
+void polarToCartesian (double rho, double theta, double& xx, double& yy){
+    xx = rho * cos(theta);
+    yy = rho * sin(theta);
+}
+
+
+    const int MAXSIZE = 5;
+    double da[MAXSIZE];
+    int k;
+    double* dp;
+    
+    for (k = 0; k < MAXSIZE; k++)
+        da[k] = 3.6;
+    
+    for (dp = da; dp <da + MAXSIZE; dp++)
+        *dp = 3.6;
+    
+*&x ==> x
+&a[i] + j ==> &a[i+j]
+&a[i] - j ==> &a[i-j]
+
+&a[i] < &a[j] ==> i < j		>, <+, >=, ==, !=
+a <==> &a[0]
+
+p[i]	==> *(p+i)
+
+
+	     const string a[]
+int lookup(const string* a, int n, string target)
+{
+	for (int k = 0; …; …;)
+		… a[k] …
+	…
+}
+
+int main()
+{
+	string sa[5] = {“a”,”b”,”c”,”d”,”e”};
+	int i = lookup(sa, 5, “ferret”);
+	int j = lookup(&sa[0], 3, “ferret”);
+	int m = lookup(&sa[1], 5, “ferret”);
+			sa+1
+}
+
+========
+double* findFirstNegative (double a[], int n)
+{
+	for (double* p = a; p<a+n; p++){
+		if (*p < 0)
+			return p;
+	}
+	return a+n;
+}
+
+
+int main(){
+	double da[5];
+	…
+	double* pfn = findFirstNegative(da, 5);	// pfn is Pointer to the First Negative
+	if(pfn == da + 5)
+		cout<<"There are no negative values in the array."<< da[fnpos] <<endl;
+	else{
+		cout << "The first negative value is " <<*pfn <<endl;
+		cout <<"It's at element number "<<pfn - &da[0] <<endl;}	//or pf - &da
+}
+
+=======
+&a[0] + 2 = &a[2]
+2 = &a[2] - &a[0]
+&a[0] = &a
+
+
+C++11 and later: nullptr
+c and c++: NULL
+
+null pointer value
+
+int* p = nullptr;
+p = nullptr;
+if(p == nullptr) ...
+if(p != nullptr) ...
+
+int* p1;
+int* p2 = nullptr;
+
+... *p1 ... ==> undefined behavior! p1 is uninitialized
+... *p2 ... ==> undefined behavior! p2 has the null pointer value
+//it's always gonna crash!
+
+
+======================================
+struct Employee
+{
+	string name;
+	double salary;
+	int age;
+}; 	//DON'T FORGET THE SEMICOLON!!!!
+//rgwesfd
+//rwegsfdsd
+//gdsgar
+
+void printPaycheck(const Employee& e);
+
+int main(){
+	Employee e1;
+	Employee e2;
+	e1.name = "Fred";
+	e1.salary = 60000;
+	e1.age = 50;
+	getline(cin, e2.name);
+	cin>>e2.salary
+	e1.age++;
+
+	Employee company[100];
+	company[3].name = "Ricky";
+
+	for(int k =0; k !=company[3].name.size(); k++)		//so, .size() is a function member.
+	cout << company[3].name[k] <<endl;
+	
+	printPaycheck(company[0]);
+
+}
+
+void printPaycheck(const Employee& e)
+{
+	cout<<"Pay to the order of "<<e.name<<" the amount $"<<e.salary/12<<endl;
+}
+
+caller's object should not change;
+	pass by value			==> best if objects are cheap to copy
+	pass by constant reference	==> best if objects are not cheap to copy
+caller's object should change
+	pass by (non-constant) reference
+
+an object	the name of
+of some	     .	a member of
+struct type	that type
+
+a pointer to	the name of 
+an object of -> a member of	p->m   equals to  (*p).m
+some struct	that type
+type
+
+11/21
+=======
+
+void celebrateBirthday (employee e)
+{
+e.age++; }
+//lucy’s birthday doesn’t change; pass by value
+
+void celebrateBirthday (const employee& e)
+{
+e.age++; }
+//will not compile == modify the employee that we promised not to modify
+
+void celebrateBirthday (employee& e)
+{
+e.age++; }
+//pass by non constant reference
+
+void celebrateBirthday (employee* ep) //a pointer to a modifiable employee
+{
+//(*ep).age++;
+ep->age++; //follow the pointer and increase age }
+
+an object of some struct type. the name of a member of that type
+a pointer to and object of that struct type -> the name of a member of that type
+
+double totalPayroll (const Employee emps[], int n)
+{
+double total = 0;
+for (int k =0; k<n; k++)
+ total +=emps[k].salary;
+return total;
+}
+
+use a pointer in for loop:
+for (Employee* ep = company; ep<company +nEmployees; ep++) //company is an array of employees
+ cout<<ep->name<<endl;
+
+
+================
+class Target{
+public:
+    Target();   //constructor
+        //void init(); -> changed to the upper one.
+    bool move(char dir);
+    void replayHistory() const;
+    int position() const;
+    
+    //    invariant:(constrain of values in the code
+    //    History consists only of Rs and Ls
+    //    pos = number of Rs in history minus number of Ls in history
+    
+private:
+    int pos;
+    string history;
+    //string can grow as large as it wants to
+};
+//"this" 是struct的一个默认用法，表示这个struct的pointer。
+
+Target::Target(){
+    this->pos = 0;
+    this->history = "";
+}
+
+int Target::position() const
+{
+    return this->pos;
+}
+//const member function: this function promises not to modify the target that calls it.
+//mark the const member function right away if it doesn't change anything so that we won't forget it.
+
+void Target::replayHistory() const
+{
+    for(int k=0; k!=this->history.size();k++)
+        cout<<this->history[k]<<endl;
+}
+
+void repeatMove(Target& x, char dir, int nTimes){
+    for(int k=0; k<nTimes; k++)
+        x.move(dir);
+}
+
+bool Target::move(char dir){
+    //    const AMOUNT = 4;
+    //    char valid[AMOUNT] = {'r','R','l','L'};
+    //    bool invalid = false;
+    switch (dir)
+    {
+        case 'R':
+        case 'r':
+            this -> pos++;
+            break;
+        case 'L':
+        case 'l':
+            this -> pos--;
+            break;
+        default:
+            return false;
+    }
+    //    for (int i=0;i<AMOUNT; i++){
+    //        if(dir == valid[i])
+    //            invalid = true;
+    //    if (isvalid)
+    
+    this->history += toupper(dir);
+    return true;
+}//making a void function to bool function and use return false at certain position can make out the logic!!!
+
+void f(const Target& x)
+{
+    cout<<x.position()<<endl;
+}
+
+int main(){
+    Target t;
+    // t.init();
+    
+    t.move('R');
+    t.replayHistory();
+    
+    Target t2;
+    // t2.init();
+    
+    t2.move('L');
+    t2.replayHistory();
+    
+    //char ch;
+    //..read a character into ch ..
+    //if(! t.move(ch)
+    //..problem! ..
+    f(t);
+    
+    repeatMove(t,'R',3);
+    //t.pos = 42; //won't compile!
+    t.replayHistory();
+    f(t);
+    
+}
+//making a void function to bool function and use return false at certain position can make out the logic!!!
+
+the name of	the name of 
+some struct ::	a member of
+ type		that type
+
+
+==========================
+//Class Array
+
+
+void addTargets(Target* ta[], int& nt, int howManyNewOnes);
+void playGame();
+
+void f(){
+    while(true)
+        playGame();
+}
+
+
+void playGame(){
+    Target* targets[1000];
+    int nTargets = 0;
+    if(true)
+        addTargets(targets, nTargets, 3);
+    
+    int i=1;    //something gives i a value, sai 1
+    targets[i]->move('R');
+    delete targets[1];
+    targets[1] = targets[2];
+    nTargets--;
+    targets[2] = nullptr;   //not necessary, but comforting for some people
+    
+    for (int k=0; k<nTargets; k++)
+        delete targets[k];
+}
+
+void addTargets(Target* ta[], int& nt, int howManyNewOnes){
+    for(int k=0; k<howManyNewOnes; k++){
+        ta[nt] = new Target;    //new 代表一个某数据类型的address
+        nt++;
+        //        Target t;
+        //        ta[nt] = &t;// t is a local variable in the bracket, so each time the pointer point to t, the value at &t changed and pointers are significant.
+    }
+}
+
+
+========================
+12/3
+named local variables ("automatic variables") live on "the stack"
+
+variables declared outside of any function live in the "global storage area" ("the static storage area")
+
+dynamically allocated objects live on "the heap"
+
+-------------
+Target* targets[1000];
+
+for (int k=0; k<1000; k++)
+	delete targets[k];	//incorrect, because most of the elements in targets[] are uninitialized.
+
+for (int k=0; k<nTargets; k++)
+	delete targets[k];
+
+------------------
+If you declare no constructor at all, the compiler writes a zero-argument constructor ("default constructor") for you that leaves members of builtin types uninitialized and default constructs members of class types.
+
+"default constructor" == "zero-argument constructor"
+
+Pointers: 
+Another way to implement pass by reference
+Traverse arrays
+Manipulate dynamic storage
+Represent relations in data structures
+
+variables declared outside of any function live in the "global storage area"" ("the static storage area")
+
+dynamically allocated objects live on "the heap"
+
+
+---------------------
+class Fan
+{
+public:
+	void turnon();
+};
+
+class Rock
+{
+public:
+	double weights() const;
+};
+
+class Robot{
+private:
+	Fan m_cooler;
+	Rock* m_rock;	// if a class may has and may not has another class, use pointer.
+};
+
+void Robit::blah(){
+	if (m_rock != nullptr && m_rock->weight() >=50)
+		m_cooler.turnon();
+}
+
+---------------------
+
+class Employee{
+public:	
+	Employee(string nm, double sal);
+	void receiveBonus(double rate) const;
+private:
+	string m_name;
+	double m_salary;
+	Company* m_company;
+};
+
+class Company
+{ public:
+	Company();
+	~Company();
+	void hire(string nm, doubles);
+	void setBonusRate(double rate);
+	void giveBonuses() const;
+	double bonusRate() const;
+	void hire(string nm, double sal);
+private:
+	Employee* m_employees[100];
+	int m_nEmployees;
+	double m_bonusRate;
+};
+
+
+void Company::hire(string nm, double sal)
+{
+	if (m_nEmployees == 100)
+		//...error...
+	m_employees[m_nEmployees] = new Employee(nm, sal, this);
+	m_nEmployees++;
+}
+
+Employee::Employee(string nm, double sal, Company* cp)
+{
+	m_name = nm;
+	m_salary = sal;
+	m_company = cp;
+}
+
+Company::Company()
+{
+	m_nEmployees = 0;
+}
+
+Company::~Company()
+{
+	for (int k=0; k<m_nEmployees; k++)
+		delete m_employees[k];
+}
+
+void Company::hire(string nm, double sal)
+{
+m_employees[m_nemployees] = new Employee(nm, sal);
+m_nEmployees++;
+}
+
+void Company::setBonusRate(double rate);
+{	
+	m_bonusRate = rate;
+}
+
+double Company::bonusRate() const
+{
+	return m_bonusRate;
+}
+
+void Company::giveBonuses() const{
+	for (int k=0; k<m_nEmployees; k++)
+		m_employees[k]->receiveBones(m_bonusRate);
+}
+
+void Employee::receiveBonus(double rate) const
+{
+	cout<<"pay to " <<m_name << " $"<<rate * m_salary <<endl;
+	
+}
+
+
+Employee::Employee(string nm, double sal)
+{
+	m_name = nm;
+	m_salary = sal;
+}
+
+--------------------------
+you can overload a function name if the functions differ in the number or the types of parameters
+
+
+
+
+
+
+
+
